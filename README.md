@@ -1,80 +1,60 @@
 
-# list_install.sh
+# Installed Packages Listing
 
-A shell script to list all user-installed packages on Debian-based systems, excluding dependencies.
+This repository contains two Bash scripts for listing installed packages on a Debian-based system. One script lists packages installed via `APT`, and the other lists packages installed via `Rust`.
 
-## Overview
+## Scripts Overview
 
-`list_install.sh` is a Bash script designed to parse the APT history logs (`/var/log/apt/history.log`) on Debian-based distributions. It generates a list of all packages explicitly installed by the user, excluding any dependencies. The script also provides an option to choose the language (English or French) for its messages and handles date formatting according to the detected system language.
+### 1. installed_apt_packages_list.sh
 
-## Features
+This script parses the APT history log to generate a list of installed packages, along with their installation dates and versions.
 
-- Lists all packages explicitly installed by the user.
-- Excludes dependencies from the list.
-- Supports both English and French language output.
-- Handles date formatting according to system language.
-- Displays real-time count of processed packages during execution.
+**Usage:**
+
+```bash
+./installed_apt_packages_list.sh [options]
+```
+
+**Options:**
+
+- `-h` : Display the help message.
+- `-f <file>` : Specify the APT log file to analyze. Default: `/var/log/apt/history.log`.
+- `-o <file>` : Specify the output file. By default, the result is displayed in the terminal.
+
+**Example:**
+
+```bash
+./installed_apt_packages_list.sh -f /var/log/apt/history.log -o result.txt
+```
+This command analyzes the specified log file and saves the results to `result.txt`.
+
+### 2. installed_rust_packages_list.sh
+
+This script lists packages installed via `cargo`, showing their installation dates and versions. It checks for the presence of Rust on the system and can save the results to a file if specified.
+
+**Usage:**
+
+```bash
+./installed_rust_packages_list.sh [options]
+```
+
+**Options:**
+
+- `-h` : Display the help message.
+- `-o <file>` : Specify the output file. By default, the result is displayed in the terminal.
+
+**Example:**
+
+```bash
+./installed_rust_packages_list.sh -o result.txt
+```
+This command lists Rust packages and saves the results to `result.txt`.
 
 ## Requirements
 
-- A Debian-based Linux distribution (e.g., Debian, Ubuntu, Linux Mint).
-- Bash (this script must be run with Bash).
-- Standard Unix utilities like `grep`, `awk`, `sed`, and `date`.
-
-## Usage
-
-### Basic Usage
-
-By default, the script reads from `/var/log/apt/history.log` and outputs the results to `install.txt`:
-
-\`\`\`bash
-./list_install.sh
-\`\`\`
-
-### Options
-
-- `-h`: Display the help message with usage instructions.
-- `-f <file>`: Specify an alternative APT log file to analyze.
-- `-o <file>`: Specify the output file. Default is `install.txt`.
-
-### Examples
-
-1. **Analyze the default APT log file and output to `install.txt`:**
-
-   \`\`\`bash
-   ./list_install.sh
-   \`\`\`
-
-2. **Specify a different log file and output file:**
-
-   \`\`\`bash
-   ./list_install.sh -f /path/to/your/logfile.log -o output.txt
-   \`\`\`
-
-## Error Handling
-
-- The script checks if the specified APT log file exists. If not, an error message is displayed.
-- If the `LANG` environment variable is not set, the script defaults to English.
-- The script verifies that it is executed with Bash and will exit with an error message if not.
-
-## Installation
-
-Clone the repository to your local machine:
-
-\`\`\`bash
-git clone https://github.com/l-pastor/list_install.sh.git
-cd list_install.sh
-\`\`\`
-
-Make the script executable:
-
-\`\`\`bash
-chmod +x list_install.sh
-\`\`\`
-
-## Contributing
-
-Feel free to contribute by opening issues or submitting pull requests.
+- **Bash**: Both scripts must be run with Bash.
+- **APT**: `installed_apt_packages_list.sh` is designed for Debian-based systems with APT.
+- **Rust and Cargo**: `installed_rust_packages_list.sh` requires Rust and Cargo to be installed on the system.
 
 ## License
 
